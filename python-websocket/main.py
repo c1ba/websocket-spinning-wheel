@@ -3,6 +3,7 @@ import json
 import os
 
 import websockets
+from aiohttp import web
 
 # Set to keep track of connected clients
 connected_clients = set()
@@ -48,14 +49,26 @@ async def on_conection(websocket_client):
         # Unregister the client when it disconnects
         connected_clients.remove(websocket_client)
 
-PORT = int(os.environ.get("PORT", 8765))
+async def on_http_connection(request):
+    return web.Response(text="OK")
 
 async def main():
     # Start the WebSocket server
-    print('Websocket Server Instantiated.')
-    async with websockets.serve(on_conection, "0.0.0.0", PORT):
-        await asyncio.Future()  # Run forever
+    print('Instatiating web server...')
+    ws_server = await websockets.serve(on_conection, "0.0.0.0", PORT)
+   # HTTP server
+    app = web.Application()
+    app.router.add_get("/", on_http_connection)
+
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, "0.0.0.0", PORT)
+    await site.start()
+
+    print(f"Server running on port {PORT}")
+    await asyncio.Future()  # Run forever
 
 
-# Run the server
-asyncio.run(main())
+if __name__ == "__main__":
+    PORT = int(os.environ.get("PORT", 8765))
+    asyncio.run(main())
