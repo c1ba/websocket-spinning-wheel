@@ -48,7 +48,7 @@ async def on_conection(websocket_client):
         # Unregister the client when it disconnects
         connected_clients.remove(websocket_client)
 
-PORT = int(os.getenv("PORT", 8765))
+PORT = int(os.environ.get("PORT", 8765))
 
 async def main():
     # Start the WebSocket server
