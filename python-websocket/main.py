@@ -53,7 +53,7 @@ PORT = int(os.getenv("PORT", 8765))
 async def main():
     # Start the WebSocket server
     print('Websocket Server Instantiated.')
-    async with websockets.serve(on_conection, "localhost", PORT):
+    async with websockets.serve(on_conection, "0.0.0.0", PORT):
         await asyncio.Future()  # Run forever
 
 
