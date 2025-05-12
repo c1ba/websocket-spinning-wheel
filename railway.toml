@@ -1,3 +1,3 @@
-[services.websocket-server]
-root = "websocket-server"
+[services.python-websocket]
+root = "python-websocket"
 start = "python main.py"
