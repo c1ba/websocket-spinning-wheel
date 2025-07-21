@@ -74,7 +74,7 @@ function App() {
 
   return (
     <div className='container'>
-      {showJobPanel && <Panel><img src={`job-${count}.jpg`} /></Panel>}
+      {showJobPanel && <Panel><img src={`job-${count}.webp`} /></Panel>}
     <p><b>Rules: </b> You will receive a number of images which should more or less collerate with the job name. The last one will be the job itself. You will be chosen at random to take a guess.</p>
       {!isPlayerRegistered && (
         <>
